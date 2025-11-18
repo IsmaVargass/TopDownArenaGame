@@ -1,7 +1,7 @@
 # TopDownArenaGame
 
-¡Bienvenido al repositorio de TopDownArenaGame!  
-Este es un juego de acción top-down de ritmo rápido ambientado en una arena, donde la supervivencia y la habilidad son clave.
+¡Bienvenido al repositorio de **TopDownArenaGame**!  
+Este es un juego de acción **top‑down** de ritmo rápido ambientado en una arena, donde la **supervivencia** y la **habilidad** son clave.
 
 ---
 
@@ -10,115 +10,107 @@ Este es un juego de acción top-down de ritmo rápido ambientado en una arena, d
 El juego completo **no se incluye** dentro de este repositorio.  
 Puedes descargar la última versión ejecutable desde el siguiente enlace de Google Drive:
 
-👉 [Descargar TopDownArenaGame (Google Drive)](https://drive.google.com/drive/folders/129EZn1P5Xh1N2QNFpG2frk5kK_efjzxo?usp=sharing)
+👉 **[Descargar TopDownArenaGame (Google Drive)](https://drive.google.com/drive/folders/129EZn1P5Xh1N2QNFpG2frk5kK_efjzxo?usp=sharing)**
 
 ---
 
 ## 🕹️ Controles
 
-La jugabilidad se centra en un esquema de control sencillo e intuitivo pensado para acción continua:
-
-| Acción        | Control              | Descripción                                      |
-|---------------|----------------------|--------------------------------------------------|
-| Movimiento    | `W`, `A`, `S`, `D`   | Mueve al personaje en la dirección deseada.      |
-| Disparo       | Clic izquierdo       | Dispara el arma principal.                       |
-| Dash / Evasión| Shift izquierdo      | Realiza una esquiva rápida para evitar daño.     |
-| Pausa         | ESC                  | Abre el menú de pausa.                           |
+| Acción         | Control              | Descripción                                      |
+|----------------|----------------------|--------------------------------------------------|
+| Movimiento     | `W`, `A`, `S`, `D`   | Mueve al personaje en la dirección deseada.      |
+| Disparo        | Clic izquierdo       | Dispara el arma principal.                       |
+| Dash / Evasión | Shift izquierdo      | Realiza una esquiva rápida para evitar daño.     |
+| Pausa          | ESC                  | Abre el menú de pausa.                           |
 
 ---
 
 ## 🚀 Cómo Ejecutar el Juego (Windows)
 
-1. Descarga el archivo ZIP desde el enlace de Google Drive.  
-2. Descomprime el ZIP en la carpeta que prefieras.  
-3. Navega a la carpeta del juego:
+1. **Descarga** el archivo ZIP desde el enlace de Google Drive.  
+2. **Descomprime** el ZIP en la carpeta que prefieras.  
+3. **Navega** a la carpeta del juego:
 
 ```
 TopDownArenaGame/Game
 ```
 
-4. Ejecuta el archivo:
+4. **Ejecuta** el archivo:
 
 ```
 TopDownArenaGame.exe
 ```
 
-El juego se iniciará inmediatamente.
+¡Y listo! El juego iniciará inmediatamente.
+
+---
+
+## 🎨 Multimedia (Capturas + Video)
+
+### 📸 Capturas del Juego
+
+Estas imágenes están ubicadas en la carpeta `screenshots/` del repositorio:
+
+![Jerarquía](screenshots/Jerarquia.png)
+![Arena](screenshots/Arena.png)
+![Arena Frontal](screenshots/ArenaFrontal.png)
+![Menú Principal](screenshots/MenuPrincipal.png)
+![Menú de Opciones](screenshots/MenuOpciones.png)
+
+### 🎥 Video de Gameplay
+
+👉 **Video de Gameplay:** *([CLICK PARA VER EL VIDEO](https://youtu.be/jO0fBjXE16I?si=tGFb6c-O_duoC2ea))*
 
 ---
 
 ## ⚙️ Estructura del Proyecto y Decisiones de Desarrollo
 
-El juego se ha desarrollado con un enfoque simple, eficiente y centralizado, utilizando una única escena principal para todo el gameplay.
+El juego se ha desarrollado con un enfoque simple, eficiente y centralizado utilizando una única escena principal.
 
-### 🎮 Jerarquía de la Escena Única (`SCENEBUENA`)
+### 🧩 Escena Única (`SCENEBUENA`)
 
-Toda la lógica del juego se concentra en una sola escena llamada SCENEBUENA, lo que:
+- Minimiza tiempos de carga  
+- Simplifica comunicación entre sistemas  
+- Facilita mantenimiento y depuración
 
-- Minimiza tiempos de carga.  
-- Simplifica la comunicación entre sistemas.  
-- Facilita el mantenimiento y la depuración.
+### 🛠️ Sistemas Principales
 
-La escena está organizada en varios bloques:
+- **GameManager**, **SystemPause**, **UIManagerObject**
+- **EnemySpawner**, **EnemyShooter**
+- **SimpleVolumeManager**, **music**
+- **Canvas** con menús: MainMenu, MenuPause, MenuOpciones, GameOverPanel, etc.
 
-### 🧩 Objetos Fundamentales (globales)
+### 👾 Enemigos
 
-- Main Camera, Directional Light, Global Volume — elementos base de renderizado e iluminación.  
-- Arena — contenedor del escenario donde ocurre la acción.  
-- Player, EnemySpawner — componentes clave del gameplay.
+**En el juego hay dos tipos de enemigos principales:**
 
-### 🛠️ Sistemas de Juego (managers)
+- Enemigo perseguidor:
 
-- SystemPause — controla el estado de pausa.  
-- UIManagerObject, EventSystem — gestión de interfaz e inputs.  
-- GameManager — control central de lógica (puntuación, estados del juego).  
-- EnemyShooter — comportamiento de disparo enemigo.  
-- music, SimpleVolumeManager — gestión de audio y volúmenes.
+Se mueve intentando alcanzar al jugador y representa la amenaza básica de contacto.
 
-### 🖥️ Interfaz de Usuario (Canvas)
+Su IA está diseñada para seguir al jugador por la arena y forzar maniobras evasivas.
 
-El Canvas contiene toda la UI, organizada en paneles que se activan o desactivan según el estado del juego:
+- Bombas que caen:
 
-- MenuPause, BtnPause  
-- BackgroundDash  
-- GameOverPanel  
-- MenuOpciones, MainMenu  
-- DamageOverlayPanel
+Aparecen cayendo desde el aire o como objetos que impactan en la arena.
 
----
+Tienen un temporizador de 2 segundos desde su aparición hasta la explosión.
 
-## 🧠 Razón de la Escena Única y Múltiples Scripts
+El jugador dispone de ese tiempo para moverse fuera del radio de la explosión o esquivarlas con dash.
 
-### Centralización con una sola escena
-Permite comunicación directa entre managers, jugador y UI sin necesidad de sistemas persistentes ni cargas adicionales.
+### 🧠 Razón de la arquitectura
 
-### Separación de responsabilidades
-En lugar de un único "Mega-Script":
-
-- Se utiliza una arquitectura de muchos scripts pequeños.  
-- Cada uno tiene una sola responsabilidad.  
-- El código es más modular, claro, fácil de depurar y escalable.
-
-Ejemplos: SystemPause, EnemyShooter, SimpleVolumeManager, etc.
+- **Centralización**: todo ocurre en una escena  
+- **Modularidad**: muchos scripts pequeños  
+- **Escalabilidad**: más fácil añadir contenido sin romper sistemas existentes  
 
 ---
 
-## 📸 Capturas (añadir imágenes)
+## 🛠️ Tecnologías Usadas
 
-```markdown
-![Captura 1](screenshots/screenshot1.png)
-![Captura 2](screenshots/screenshot2.png)
-```
-
-Consejo: sube las capturas al repositorio (no al build) y referencia la ruta `screenshots/` para que se muestren en GitHub.
+- Motor: **Unity**
+- Lenguaje: **C#**
 
 ---
 
-## 🛠️ Tecnologías usadas
-
-- Motor de juego: Unity  
-- Lenguaje de programación: C#
-
----
-
-Gracias por revisar el proyecto. Si tienes sugerencias o encuentras algún error, abre un issue o contacta.
+¡Gracias por revisar el proyecto! Si tienes sugerencias o encuentras algún error, puedes abrir un issue. 🎮
